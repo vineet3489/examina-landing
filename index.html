@@ -38,6 +38,7 @@
   <title>Examina – Your AI-Powered SSC Preparation Partner</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" />
   
   <!-- Razorpay Integration -->
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
@@ -206,7 +207,7 @@
       </div>
     </div>
     <div class="hero-image">
-      <img data-image="hero.main" alt="Examina Learning Platform" class="hero-img">
+      <img data-image="hero.main" alt="Examina Learning Platform" class="hero-img" loading="lazy">
     </div>
   </header>
 
@@ -257,15 +258,21 @@
     <h2>See Examina in Action</h2>
     <div class="screenshot-grid">
       <div class="screenshot">
-        <img data-image="screenshots.mockTest" alt="Interactive Mock Tests" class="screenshot-img">
+        <a href="https://placehold.co/1200x800/4f46e5/ffffff?text=Interactive+Mock+Tests" data-lightbox="screenshots" data-title="Interactive Mock Tests with Real-time Feedback">
+          <img data-image="screenshots.mockTest" alt="Interactive Mock Tests" class="screenshot-img" loading="lazy">
+        </a>
         <p>Interactive Mock Tests with Real-time Feedback</p>
       </div>
       <div class="screenshot">
-        <img data-image="screenshots.flashcards" alt="AI-Powered Flashcards" class="screenshot-img">
+        <a href="https://placehold.co/1200x800/4f46e5/ffffff?text=AI+Powered+Flashcards" data-lightbox="screenshots" data-title="AI-Powered Flashcards for Effective Revision">
+          <img data-image="screenshots.flashcards" alt="AI-Powered Flashcards" class="screenshot-img" loading="lazy">
+        </a>
         <p>AI-Powered Flashcards for Effective Revision</p>
       </div>
       <div class="screenshot">
-        <img data-image="screenshots.studyPlan" alt="Customized Study Plans" class="screenshot-img">
+        <a href="https://placehold.co/1200x800/4f46e5/ffffff?text=Smart+Study+Plans" data-lightbox="screenshots" data-title="Customized Study Plans Based on Your Progress">
+          <img data-image="screenshots.studyPlan" alt="Customized Study Plans" class="screenshot-img" loading="lazy">
+        </a>
         <p>Customized Study Plans Based on Your Progress</p>
       </div>
     </div>
@@ -276,14 +283,14 @@
     <div class="testimonial-grid">
       <div class="testimonial-card">
         <div class="user-avatar">
-          <img data-image="testimonials.user1" alt="Rahul S." class="avatar-img">
+          <img data-image="testimonials.user1" alt="Rahul S." class="avatar-img" loading="lazy">
         </div>
         <p class="testimonial-text">"Examina's AI tutor helped me understand complex topics easily. My scores improved significantly!"</p>
         <p class="user-name">- Rahul S.</p>
       </div>
       <div class="testimonial-card">
         <div class="user-avatar">
-          <img data-image="testimonials.user2" alt="Priya M." class="avatar-img">
+          <img data-image="testimonials.user2" alt="Priya M." class="avatar-img" loading="lazy">
         </div>
         <p class="testimonial-text">"The personalized study plan made my preparation more focused and effective."</p>
         <p class="user-name">- Priya M.</p>
@@ -339,6 +346,16 @@
           'feature_name': this.querySelector('h3').textContent
         });
       });
+    });
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+  <script>
+    // Lightbox Configuration
+    lightbox.option({
+      'resizeDuration': 200,
+      'wrapAround': true,
+      'albumLabel': 'Screenshot %1 of %2',
+      'fadeDuration': 300
     });
   </script>
 </body>
