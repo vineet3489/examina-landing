@@ -1,0 +1,12 @@
+{
+  "name": "examina-landing",
+  "version": "1.0.0",
+  "description": "Landing page for Examina - AI-powered SSC exam preparation platform",
+  "main": "index.html",
+  "scripts": {
+    "generate-placeholders": "node generate-placeholders.js"
+  },
+  "dependencies": {
+    "canvas": "^2.11.2"
+  }
+} 

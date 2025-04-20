@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google Search Console Verification -->
+  <meta name="google-site-verification" content="58e11a3c3928dfeb" />
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Examina - Your AI-Powered SSC Preparation Partner. Get personalized study plans, 24/7 AI tutor support, and smart analytics to ace your SSC exams.">
+  <meta name="keywords" content="SSC exam preparation, AI tutor, study plans, mock tests, flashcards, online learning">
+  <meta name="author" content="Examina">
+  <meta property="og:title" content="Examina – Your AI-Powered SSC Preparation Partner">
+  <meta property="og:description" content="Get personalized study plans, 24/7 AI tutor support, and smart analytics to ace your SSC exams">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://examina.netlify.app">
+  <link rel="canonical" href="https://examina.netlify.app">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="https://placehold.co/32x32/4f46e5/ffffff?text=E">
+  
+  <!-- Security Headers -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: 'unsafe-inline' 'unsafe-eval'; img-src 'self' https: data:;">
+  <meta http-equiv="X-Frame-Options" content="DENY">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-50JBZNGDRR"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-50JBZNGDRR');
+  </script>
+  
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Examina – Your AI-Powered SSC Preparation Partner</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  
+  <!-- Razorpay Integration -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  
+  <style>
+    .placeholder-img {
+      background: linear-gradient(135deg, #4f46e5, #818cf8);
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      min-height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      text-align: center;
+      padding: 20px;
+      margin-bottom: 1rem;
+    }
+    .hero-image .placeholder-img {
+      min-height: 400px;
+    }
+    .screenshot .placeholder-img {
+      min-height: 300px;
+    }
+    .user-avatar .placeholder-img {
+      width: 80px;
+      height: 80px;
+      min-height: unset;
+      border-radius: 50%;
+      margin: 0 auto 1rem;
+    }
+  </style>
+  <script type="module">
+    import IMAGES from './images/config.js';
+    window.IMAGES = IMAGES;
+  </script>
+  <script>
+    // Load images after DOM is ready
+    document.addEventListener('DOMContentLoaded', function() {
+      const IMAGES = {
+        hero: {
+          main: 'https://placehold.co/1200x600/4f46e5/ffffff?text=Examina+Learning+Platform'
+        },
+        screenshots: {
+          mockTest: 'https://placehold.co/800x500/4f46e5/ffffff?text=Interactive+Mock+Tests',
+          flashcards: 'https://placehold.co/800x500/4f46e5/ffffff?text=AI+Powered+Flashcards',
+          studyPlan: 'https://placehold.co/800x500/4f46e5/ffffff?text=Smart+Study+Plans'
+        },
+        testimonials: {
+          user1: 'https://placehold.co/150x150/4f46e5/ffffff?text=R',
+          user2: 'https://placehold.co/150x150/4f46e5/ffffff?text=P'
+        }
+      };
+
+      // Update image sources
+      document.querySelectorAll('[data-image]').forEach(img => {
+        const path = img.getAttribute('data-image').split('.');
+        let source = IMAGES;
+        path.forEach(key => source = source[key]);
+        img.src = source;
+      });
+    });
+
+    // Razorpay Configuration
+    const RAZORPAY_KEY_ID = 'rzp_live_WJkuEq5UZJhH5p';
+
+    // Razorpay Integration
+    function handlePayment(e) {
+      e.preventDefault();
+      console.log('Payment handler triggered');
+      
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const phone = document.getElementById('phone').value;
+
+      // Validate phone number
+      if (!/^[0-9]{10}$/.test(phone)) {
+        alert('Please enter a valid 10-digit phone number');
+        return false;
+      }
+
+      // Track form submission
+      if (typeof gtag === 'function') {
+        gtag('event', 'begin_checkout', {
+          'value': 99,
+          'currency': 'INR'
+        });
+      }
+
+      try {
+        if (typeof Razorpay === 'undefined') {
+          throw new Error('Razorpay SDK not loaded. Please check your internet connection and try again.');
+        }
+
+        const options = {
+          key: RAZORPAY_KEY_ID,
+          amount: 9900,
+          currency: 'INR',
+          name: 'Examina',
+          description: 'Early Access Waitlist',
+          prefill: {
+            name: name,
+            email: email,
+            contact: phone
+          },
+          handler: function(response) {
+            console.log('Payment success:', response);
+            if (typeof gtag === 'function') {
+              gtag('event', 'purchase', {
+                'transaction_id': response.razorpay_payment_id,
+                'value': 99,
+                'currency': 'INR'
+              });
+            }
+            
+            alert('Payment Successful! Welcome to Examina Early Access. We will contact you shortly.');
+            document.getElementById('waitlist-form').reset();
+          },
+          modal: {
+            ondismiss: function() {
+              console.log('Checkout modal dismissed');
+              if (typeof gtag === 'function') {
+                gtag('event', 'checkout_abandon');
+              }
+            }
+          },
+          theme: {
+            color: '#4f46e5'
+          }
+        };
+
+        const rzp = new Razorpay(options);
+        rzp.on('payment.failed', function(response) {
+          console.log('Payment failed:', response);
+          alert('Payment failed. Please try again. Error: ' + response.error.description);
+          if (typeof gtag === 'function') {
+            gtag('event', 'payment_failed', {
+              'error': response.error.description
+            });
+          }
+        });
+        
+        rzp.open();
+        return false;
+      } catch (error) {
+        console.error('Razorpay error:', error);
+        alert('Something went wrong. Please try again. Error: ' + error.message);
+        return false;
+      }
+    }
+  </script>
+</head>
+<body>
+  <header class="hero">
+    <nav>
+      <div class="logo">Examina</div>
+      <a href="#waitlist" class="nav-cta">Join Waitlist - ₹99</a>
+    </nav>
+    <div class="hero-content">
+      <h1>Master SSC Exams with AI-Powered Learning</h1>
+      <p>Get personalized study plans, 24/7 AI tutor support, and smart analytics to ace your SSC exams</p>
+      <div class="cta-buttons">
+        <a href="#demo" class="cta-btn primary">Try Free Diagnostic Test</a>
+        <a href="#waitlist" class="cta-btn secondary">Join Early Access</a>
+      </div>
+    </div>
+    <div class="hero-image">
+      <img data-image="hero.main" alt="Examina Learning Platform" class="hero-img">
+    </div>
+  </header>
+
+  <section id="features" class="features">
+    <h2>Why Choose Examina?</h2>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <i class="fas fa-chart-line"></i>
+        <h3>Smart Diagnostic Tests</h3>
+        <p>Take free diagnostic tests to identify your strengths and areas for improvement</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-robot"></i>
+        <h3>24/7 AI Tutor</h3>
+        <p>Get instant help and explanations from our AI tutor anytime, anywhere</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-tasks"></i>
+        <h3>Personalized Study Plans</h3>
+        <p>Receive customized study plans based on your performance and goals</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-brain"></i>
+        <h3>Smart Flashcards</h3>
+        <p>Review key concepts with AI-powered flashcards that adapt to your learning</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-chart-bar"></i>
+        <h3>Success Predictor</h3>
+        <p>Track your progress and get predictions for your exam performance</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-bullseye"></i>
+        <h3>Score Improvement</h3>
+        <p>Get targeted recommendations to improve your scores in weak areas</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="demo" class="demo">
+    <h2>Experience Examina</h2>
+    <div class="demo-container">
+      <iframe src="https://learnjoy.lovable.app/" width="100%" height="600" style="border: none;"></iframe>
+    </div>
+  </section>
+
+  <section id="screenshots" class="screenshots">
+    <h2>See Examina in Action</h2>
+    <div class="screenshot-grid">
+      <div class="screenshot">
+        <img data-image="screenshots.mockTest" alt="Interactive Mock Tests" class="screenshot-img">
+        <p>Interactive Mock Tests with Real-time Feedback</p>
+      </div>
+      <div class="screenshot">
+        <img data-image="screenshots.flashcards" alt="AI-Powered Flashcards" class="screenshot-img">
+        <p>AI-Powered Flashcards for Effective Revision</p>
+      </div>
+      <div class="screenshot">
+        <img data-image="screenshots.studyPlan" alt="Customized Study Plans" class="screenshot-img">
+        <p>Customized Study Plans Based on Your Progress</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="testimonials" class="testimonials">
+    <h2>What Our Users Say</h2>
+    <div class="testimonial-grid">
+      <div class="testimonial-card">
+        <div class="user-avatar">
+          <img data-image="testimonials.user1" alt="Rahul S." class="avatar-img">
+        </div>
+        <p class="testimonial-text">"Examina's AI tutor helped me understand complex topics easily. My scores improved significantly!"</p>
+        <p class="user-name">- Rahul S.</p>
+      </div>
+      <div class="testimonial-card">
+        <div class="user-avatar">
+          <img data-image="testimonials.user2" alt="Priya M." class="avatar-img">
+        </div>
+        <p class="testimonial-text">"The personalized study plan made my preparation more focused and effective."</p>
+        <p class="user-name">- Priya M.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="waitlist" class="waitlist">
+    <h2>Join the Early Access Waitlist</h2>
+    <p>Be among the first to experience the future of SSC exam preparation</p>
+    <div class="price-tag">Just ₹99</div>
+    <form class="waitlist-form" id="waitlist-form" onsubmit="return handlePayment(event)">
+      <input type="text" id="name" placeholder="Your Name" required>
+      <input type="email" id="email" placeholder="Email Address" required>
+      <input type="tel" id="phone" placeholder="Phone Number" required pattern="[0-9]{10}">
+      <button type="submit" class="cta-btn primary">Pay ₹99 & Join Waitlist</button>
+    </form>
+  </section>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-logo">Examina</div>
+      <p>Revolutionizing SSC exam preparation with AI</p>
+      <div class="social-links">
+        <a href="#" onclick="gtag('event', 'social_click', {'network': 'twitter'});"><i class="fab fa-twitter"></i></a>
+        <a href="#" onclick="gtag('event', 'social_click', {'network': 'linkedin'});"><i class="fab fa-linkedin"></i></a>
+        <a href="#" onclick="gtag('event', 'social_click', {'network': 'instagram'});"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 Examina. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Track scroll depth
+    let maxScroll = 0;
+    window.addEventListener('scroll', function() {
+      const scrollPercent = (window.scrollY + window.innerHeight) / document.documentElement.scrollHeight * 100;
+      if (scrollPercent > maxScroll) {
+        maxScroll = scrollPercent;
+        if (maxScroll >= 25) gtag('event', 'scroll_depth', {'depth': '25%'});
+        if (maxScroll >= 50) gtag('event', 'scroll_depth', {'depth': '50%'});
+        if (maxScroll >= 75) gtag('event', 'scroll_depth', {'depth': '75%'});
+        if (maxScroll >= 90) gtag('event', 'scroll_depth', {'depth': '90%'});
+      }
+    });
+
+    // Track feature card clicks
+    document.querySelectorAll('.feature-card').forEach(card => {
+      card.addEventListener('click', function() {
+        gtag('event', 'feature_click', {
+          'feature_name': this.querySelector('h3').textContent
+        });
+      });
+    });
+  </script>
+</body>
+</html>
